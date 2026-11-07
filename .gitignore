@@ -1,0 +1,31 @@
+# Local credentials and endpoint configuration. Only blank templates are public.
+.env*
+!.env.example
+.*.env
+.*.env.*
+!.controlplane.env.example
+!.endpoints.env.example
+.secrets/
+credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Persistent state, receipts, and local deployment/build metadata.
+lambda-state*/
+*.job
+*-deployment.json
+submission*.json
+job.json
+build.json
+*.log
+
+# Generated service binaries, CA bundle, and language artifacts.
+/deploy/controlplane/lambda
+/deploy/controlplane/ca-certificates.crt
+/deploy/dashboard/dashboard
+/lambda
+__pycache__/
+*.py[cod]
+.DS_Store

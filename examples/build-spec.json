@@ -1,0 +1,13 @@
+{
+  "name": "hello",
+  "image": "YOUR_NAMESPACE/python-function",
+  "source": "import os\n\ndef handler(event):\n    return {\"message\": f\"{os.environ.get('GREETING', 'Hello')}, {event.get('name', 'World')}!\"}\n",
+  "entry": "handler",
+  "memory_mb": 128,
+  "env": {
+    "GREETING": "Hello"
+  },
+  "auth": {
+    "mode": "bearer"
+  }
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="lambda-api" content="__API_ORIGIN__">
+<link rel="icon" href="data:,">
+<title>Lambda console</title>
+</head>
+<body>
+<h1>Lambda console</h1>
+<p id="message" role="status" aria-live="polite">Loading jobs…</p>
+<form id="build-form">
+<fieldset>
+<legend>Build and deploy a Python function</legend>
+<p><label>Name <input id="name" value="hello" pattern="[a-z][a-z0-9-]{0,30}"></label>
+<label>Image <input id="image" value="owen-gordon/python-function-example" size="48" required></label></p>
+<p><label>Entry <input id="entry" value="handler" required></label>
+<label>Memory (MiB) <input id="memory" type="number" value="128" min="128" max="2048" required></label>
+<label>Metro <select id="metro" required disabled><option value="">Loading metros…</option></select></label>
+<label>Access <select id="access"><option value="bearer">Private</option><option value="public">Public</option></select></label></p>
+<p><label>Python file <input id="file" type="file" accept=".py,text/x-python"></label></p>
+<p><label>Source<br><textarea id="source" rows="10" cols="85" required>import os
+
+
+def handler(event):
+    greeting = os.environ.get("GREETING", "Hello")
+    return {"message": f"{greeting}, {event.get('name', 'World')}!"}
+</textarea></label></p>
+<p><label>Environment (JSON object)<br><textarea id="env" rows="3" cols="85">{"GREETING":"Hello"}</textarea></label></p>
+<button id="build" type="submit" disabled>Build and deploy</button>
+</fieldset>
+</form>
+<section id="receipt-section" hidden>
+<h2>Submission</h2>
+<p>Save this receipt. The invocation token is returned once.</p>
+<button id="download-receipt" type="button">Download receipt</button>
+<pre id="receipt"></pre>
+</section>
+<h2>Jobs and functions</h2>
+<button id="refresh" type="button">Refresh</button>
+<p>Deployment attempts and instance state are shown separately. Refresh inspects instances without waking them. Check health wakes a function and records the result. Only pending jobs are polled automatically.</p>
+<table>
+<thead><tr><th>Name</th><th>Metro</th><th>Deployment attempt</th><th>Instance (last reported)</th><th>Endpoint</th><th>Actions</th></tr></thead>
+<tbody id="jobs"></tbody>
+</table>
+<h2>Invoke a function</h2>
+<form id="invoke-form">
+<p><label>Job <select id="invoke-job" required><option value="">Choose a deployed function</option></select></label></p>
+<p><label>JSON request<br><textarea id="payload" rows="4" cols="85">{"name":"Owen"}</textarea></label></p>
+<button id="invoke" type="submit">Invoke</button>
+</form>
+<h2>Result</h2>
+<pre id="result" aria-live="polite"></pre>
+<script>__SCRIPT__</script>
+</body>
+</html>
